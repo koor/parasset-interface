@@ -1,0 +1,17 @@
+import './index.scss'
+
+const Index = ({ children, speed }) => {
+  return (
+    <div class="track">
+      <div
+        class="child"
+        style={{
+          animation: `scrollTo linear ${speed}s infinite`
+        }}>
+        {children}
+      </div>
+    </div>
+  )
+}
+
+export default Index

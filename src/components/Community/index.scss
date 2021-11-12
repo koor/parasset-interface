@@ -1,0 +1,39 @@
+.community {
+  text-transform: uppercase;
+  border-bottom: 1px solid #000;
+
+  .title {
+    width: 0.8rem;
+    border-right: 1px solid #000;
+    padding-top: 0.44rem;
+    font-size: 0.28rem;
+    font-weight: 500;
+    color: #000000;
+    text-align: center;
+    background: url(../../assets/images/community-bg.png) center center / cover no-repeat #639a83;
+
+    span {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+    }
+  }
+
+  .community-desc {
+    padding: 0.32rem 0.1rem;
+    font-size: 0.2rem;
+    font-weight: 600;
+    color: #878787;
+    border-bottom: 1px solid #000;
+  }
+
+  .community-links {
+    padding: 0.6rem 0.32rem 0.68rem;
+
+    .icon {
+      img {
+        width: 0.56rem;
+        height: 0.56rem;
+      }
+    }
+  }
+}

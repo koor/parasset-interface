@@ -1,0 +1,25 @@
+.part {
+  text-transform: uppercase;
+  border-bottom: 1px solid #000;
+
+  .title,
+  .sub-title {
+    width: 0.8rem;
+    border-right: 1px solid #000;
+    padding-top: 0.44rem;
+    font-size: 0.28rem;
+    font-weight: 500;
+    color: #000000;
+    text-align: center;
+
+    &.right {
+      border-left: 1px solid #000;
+      border-right: none;
+    }
+
+    span {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+    }
+  }
+}

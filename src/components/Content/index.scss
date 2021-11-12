@@ -1,0 +1,40 @@
+.item-list {
+  text-transform: uppercase;
+
+  .item {
+    height: auto;
+    padding: 0.32rem 0.16rem;
+
+    &.clickable {
+      cursor: pointer;
+
+      &:active {
+        background: linear-gradient(135deg, #5a88bb 0%, #7fc9ca 100%);
+
+        .name, .desc {
+          color: #ffffff;
+        }
+      }
+
+      .ReactCollapse--collapse {
+        transition: height 1000ms;
+      }
+    }
+
+    & + .item {
+      border-top: 1px solid #000;
+    }
+
+    .name {
+      font-size: 0.24rem;
+      font-weight: 600;
+      color: #000000;
+    }
+
+    .desc {
+      font-size: 0.2rem;
+      font-weight: 600;
+      color: #878787;
+    }
+  }
+}

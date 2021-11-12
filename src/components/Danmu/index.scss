@@ -1,0 +1,18 @@
+.track {
+  margin-bottom: 0.1rem;
+
+  .child {
+    color: #000;
+    font-size: 0.48rem;
+    font-weight: 600;
+    transform: translateX(100%);
+    animation: scrollTo linear 4s infinite;
+    line-height: 1.3em;
+  }
+}
+
+@keyframes scrollTo {
+  to {
+    transform: translateX(-100%);
+  }
+}
