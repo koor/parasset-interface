@@ -91,12 +91,12 @@ const Index = () => {
 
   return (
     <div className="wrapper flex">
-      <aside className="left">
-        <section className="top flex items-center justify-center">
+      <aside className="left flex-shrink-0">
+        <section className="top flex items-center justify-center md:p-0.5">
           <img src={logo} alt="logo" className="logo" />
         </section>
-        <section className="bottom">
-          <ul className="flex flex-row-reverse">
+        <section className="bottom md:pt-2">
+          <ul className="flex flex-row-reverse mx-auto">
             <li>
               <a onClick={() => scrollToAnchor('home')}>HOME</a>
             </li>
@@ -124,7 +124,7 @@ const Index = () => {
               <div className="button">app</div>
             </a>
           </div>
-          <div className="total">
+          <div className="total flex justify-between flex-col">
             <p>Total value locked</p>
             <p className="amount">$131,233,574.45</p>
           </div>

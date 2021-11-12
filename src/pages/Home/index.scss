@@ -1,6 +1,7 @@
 .wrapper {
   font-size: 12px;
   text-transform: uppercase;
+  position: relative;
 
   .left {
     width: 0.94rem;
@@ -26,7 +27,6 @@
       ul {
         writing-mode: vertical-rl;
         transform: rotate(180deg);
-        margin: 0 auto;
 
         li {
           margin-bottom: 30px;
@@ -41,6 +41,8 @@
   }
 
   .right {
+    overflow: hidden;
+
     .top {
       height: 1.04rem;
       border-bottom: 1px solid #000;
@@ -88,7 +90,6 @@
           font-size: 0.56rem;
           font-weight: 600;
           text-align: center;
-          margin-top: 0.16rem;
         }
       }
     }

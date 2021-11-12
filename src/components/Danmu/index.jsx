@@ -2,9 +2,9 @@ import './index.scss'
 
 const Index = ({ children, speed }) => {
   return (
-    <div class="track">
+    <div className="track">
       <div
-        class="child"
+        className="child"
         style={{
           animation: `scrollTo linear ${speed}s infinite`
         }}>

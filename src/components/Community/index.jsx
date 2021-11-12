@@ -91,13 +91,17 @@ const Index = () => {
       </div>
       <div className="flex-1">
         <div className="community-desc">
-          deeply understand parasset, communicate with the team, and build a new parallel universe
-          together.
+          <div className="md:px-2">
+            deeply understand parasset, communicate with the team, and build a new parallel universe
+            together.
+          </div>
         </div>
-        <div className="community-links flex justify-between">
-          {links.map(item => (
-            <Icon key={item.name} img={item.img} imgActive={item.imgActive} link={item.link} />
-          ))}
+        <div className="community-links">
+          <div className="md:px-2 flex justify-between">
+            {links.map(item => (
+              <Icon key={item.name} img={item.img} imgActive={item.imgActive} link={item.link} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -5,9 +5,10 @@
     color: #000;
     font-size: 0.48rem;
     font-weight: 600;
-    transform: translateX(100%);
-    animation: scrollTo linear 4s infinite;
+    transform: translateX(100vw);
     line-height: 1.3em;
+    word-spacing: 0.4rem;
+    white-space: nowrap;
   }
 }
 
