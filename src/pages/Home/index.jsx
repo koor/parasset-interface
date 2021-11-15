@@ -93,7 +93,7 @@ const Index = () => {
         <section className="top flex items-center justify-center">
           <img src={logo} alt="logo" className="logo" />
         </section>
-        <section className="bottom">
+        <section className="bottom flex">
           <ul className="flex flex-row-reverse mx-auto">
             <li>
               <a onClick={() => scrollToAnchor('home')}>HOME</a>
