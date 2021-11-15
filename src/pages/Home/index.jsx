@@ -80,9 +80,7 @@ const Index = () => {
 
   const scrollToAnchor = anchorName => {
     if (anchorName) {
-      // 找到锚点
       let anchorElement = document.getElementById(anchorName)
-      // 如果对应id的锚点存在，就跳转到锚点
       if (anchorElement) {
         anchorElement.scrollIntoView({ block: 'start', behavior: 'smooth' })
       }
@@ -92,10 +90,10 @@ const Index = () => {
   return (
     <div className="wrapper flex">
       <aside className="left flex-shrink-0">
-        <section className="top flex items-center justify-center md:p-0.5">
+        <section className="top flex items-center justify-center">
           <img src={logo} alt="logo" className="logo" />
         </section>
-        <section className="bottom md:pt-2">
+        <section className="bottom">
           <ul className="flex flex-row-reverse mx-auto">
             <li>
               <a onClick={() => scrollToAnchor('home')}>HOME</a>
@@ -116,9 +114,9 @@ const Index = () => {
         <section className="top" id="home"></section>
         <section className="bottom">
           <div className="banner">
-            <Danmu speed="3">stake your crypto</Danmu>
-            <Danmu speed="4">assets to mint</Danmu>
-            <Danmu speed="5">parallel assets</Danmu>
+            <Danmu speed="5">stake your crypto</Danmu>
+            <Danmu speed="6">assets to mint</Danmu>
+            <Danmu speed="5.5">parallel assets</Danmu>
             <p className="desc">Value reengineering based on oracle</p>
             <a href="https://parasset.top/">
               <div className="button">app</div>

@@ -7,7 +7,6 @@ const Item = ({ item, collapse }) => {
 
   return (
     <li className={`item ${collapse ? 'clickable' : ''}`} onClick={() => setOpen(!open)}>
-      <div className="md:px-2">
         <p className="name">{item.name}</p>
         {collapse ? (
           <Collapse isOpened={open}>
@@ -16,7 +15,6 @@ const Item = ({ item, collapse }) => {
         ) : (
           <p className="desc">{item.desc}</p>
         )}
-      </div>
     </li>
   )
 }

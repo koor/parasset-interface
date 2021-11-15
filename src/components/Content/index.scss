@@ -39,4 +39,21 @@
       margin-top: 0.16rem;
     }
   }
+
+  @media (min-width: 980px) {
+    .item {
+      padding: 44px 94px 42px;
+
+      .name {
+        font-size: 33px;
+      }
+
+      .desc {
+        max-width: 900px;
+        font-size: 25px;
+        margin-top: 26px;
+        line-height: 2em;
+      }
+    }
+  }
 }

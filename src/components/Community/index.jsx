@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
 import './index.scss'
+import { Title } from '../Part'
 
+import communityBg from '../../assets/images/community-bg.png'
 import telegram from '../../assets/images/links/telegram_icon.svg'
 import telegramActive from '../../assets/images/links/telegram_icon(1).svg'
 import audit from '../../assets/images/links/audit_icon.svg'
@@ -67,7 +69,7 @@ const Index = () => {
         name: 'docs',
         img: docs,
         imgActive: docsActive,
-        link: '#'
+        link: 'https://github.com/Parasset/Parasset-Doc'
       },
       {
         name: 'whitepaper',
@@ -85,19 +87,19 @@ const Index = () => {
   }, [])
 
   return (
-    <section className="community flex flex-row-reverse" id="community">
-      <div className="title">
-        <span>community</span>
-      </div>
+    <section className="community part flex flex-row-reverse" id="community">
+      <Title titleBg={`url(${communityBg}) center center / cover no-repeat #639a83`} isRight>
+        community
+      </Title>
       <div className="flex-1">
         <div className="community-desc">
-          <div className="md:px-2">
+          <div className="desc">
             deeply understand parasset, communicate with the team, and build a new parallel universe
             together.
           </div>
         </div>
         <div className="community-links">
-          <div className="md:px-2 flex justify-between">
+          <div className="links flex justify-between">
             {links.map(item => (
               <Icon key={item.name} img={item.img} imgActive={item.imgActive} link={item.link} />
             ))}
