@@ -8,7 +8,7 @@
     &.clickable {
       cursor: pointer;
 
-      &:active {
+      &:active, &:hover {
         background: linear-gradient(135deg, #5a88bb 0%, #7fc9ca 100%);
 
         .name,
