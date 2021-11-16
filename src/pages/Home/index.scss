@@ -10,6 +10,8 @@
     .top {
       height: 1.04rem;
       border-bottom: 1px solid #000;
+      position: sticky;
+      top: 0;
 
       .logo {
         width: 0.72rem;
@@ -22,7 +24,7 @@
       font-weight: 500;
       color: #000000;
       position: sticky;
-      top: 0;
+      top: 1.04rem;
 
       ul {
         writing-mode: vertical-rl;
@@ -117,6 +119,8 @@
         font-size: 21px;
         font-weight: 600;
         padding-top: 100px;
+        position: sticky;
+        top: 88px;
 
         ul {
           li {
