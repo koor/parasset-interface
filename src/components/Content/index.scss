@@ -42,14 +42,14 @@
 
   @media (min-width: 980px) {
     .item {
-      padding: 44px 94px 42px;
+      padding: 44px 0 42px 94px;
 
       .name {
         font-size: 33px;
       }
 
       .desc {
-        max-width: 900px;
+        max-width: 80%;
         font-size: 25px;
         margin-top: 26px;
         line-height: 2em;
