@@ -1,9 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useMemo } from 'react'
+import { useMemo, useCallback, useEffect, useState } from 'react'
 import './index.scss'
 import Part from '../../components/Part'
 import Community from '../../components/Community'
 import Danmu from '../../components/Danmu'
+import { ethers, Contract } from 'ethers'
+import ERC20 from '../../basis-cash/ERC20'
+import { web3ProviderFrom } from '../../utils'
+import { config, debtDefinitions } from '../../utils/config'
 
 import logo from '../../assets/images/logo.svg'
 import featuresBg from '../../assets/images/features-bg.png'
@@ -86,6 +90,46 @@ const Index = () => {
       }
     }
   }
+
+  const [debt, setDebt] = useState({})
+
+  const provider = new ethers.providers.Web3Provider(
+    web3ProviderFrom('https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'),
+    1
+  )
+
+  const fetchPools = useCallback(async () => {
+    const contracts = {}
+    for (const [name, deployment] of Object.entries(config.deployments)) {
+      contracts[name] = new Contract(deployment.address, deployment.abi, provider)
+    }
+    const externalTokens = {}
+    for (const [symbol, [address, decimal]] of Object.entries(config.externalTokens)) {
+      externalTokens[symbol] = new ERC20(address, provider, symbol, decimal) // TODO: add decimal
+    }
+
+    const debts = []
+    for (const debtInfo of Object.values(debtDefinitions)) {
+      debts.push({
+        ...debtInfo,
+        address: config.deployments[debtInfo.contract].address,
+        mortgagePoolContract: contracts[debtInfo.contract],
+        mortgageToken: externalTokens[debtInfo.depositTokenName],
+        uToken: externalTokens[debtInfo.earnTokenName]
+      })
+    }
+    console.log(debts)
+    setDebt(debts[1])
+
+    const balance = await debts[1].mortgageToken.balanceOf(
+      '0x505eFcC134552e34ec67633D1254704B09584227'
+    )
+    console.log(balance)
+  }, [])
+
+  useEffect(() => {
+    fetchPools()
+  }, [])
 
   return (
     <div className="wrapper flex">
