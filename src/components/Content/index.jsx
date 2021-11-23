@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import './index.scss'
 import { Collapse } from 'react-collapse'
 import { useState } from 'react'

@@ -1,3 +1,5 @@
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/jsx-no-comment-textnodes */
 import { useMemo, useState } from 'react'
 import './index.scss'
 import { Title } from '../Part'

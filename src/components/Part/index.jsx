@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import './index.scss'
 import Content from '../Content'
 
