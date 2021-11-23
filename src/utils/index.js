@@ -27,3 +27,24 @@ export const getTonumber = (balance, decimals = 18) => {
   const displayBalance = balance.dividedBy(new BigNumber(10).pow(decimals))
   return balance.dividedBy(new BigNumber(10).pow(decimals)).toFixed(displayBalance.dp(), 1)
 }
+
+export const getNumberToFixed = balance => {
+  balance = new BigNumber(balance)
+  return balance.toFixed(balance.dp(), 1)
+}
+
+export const $isFiniteNumber = val => {
+  return !Number.isFinite(parseFloat(val)) ? 0 : val
+}
+export const $isPositiveNumber = val => {
+  return new BigNumber(val).gt(0) ? val : 0
+}
+
+export const formatValue = (value, decimals = 3) => {
+  const getDep = (val, decimals) => {
+    let dp = new BigNumber(val).dp()
+    return dp > decimals ? decimals : dp
+  }
+  const dp = getDep(value, decimals)
+  return parseFloat(value) ? new BigNumber(value).toFormat(dp) : value
+}

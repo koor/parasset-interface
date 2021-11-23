@@ -6,7 +6,15 @@ import Community from '../../components/Community'
 import Danmu from '../../components/Danmu'
 import { ethers, Contract } from 'ethers'
 import ERC20 from '../../basis-cash/ERC20'
-import { web3ProviderFrom } from '../../utils'
+import BigNumber from 'bignumber.js'
+import {
+  web3ProviderFrom,
+  getTonumber,
+  getNumberToFixed,
+  $isFiniteNumber,
+  $isPositiveNumber,
+  formatValue
+} from '../../utils'
 import { config, debtDefinitions } from '../../utils/config'
 
 import logo from '../../assets/images/logo.svg'
@@ -14,6 +22,8 @@ import featuresBg from '../../assets/images/features-bg.png'
 import faqBg from '../../assets/images/faq-bg.png'
 
 const Index = () => {
+  const [total, setTotal] = useState('-')
+
   const featureList = useMemo(() => {
     return [
       {
@@ -91,11 +101,9 @@ const Index = () => {
     }
   }
 
-  const [debt, setDebt] = useState({})
-
   const provider = new ethers.providers.Web3Provider(
-    web3ProviderFrom('https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'),
-    1
+    web3ProviderFrom(config.defaultProvider),
+    config.chainId
   )
 
   const fetchPools = useCallback(async () => {
@@ -118,13 +126,68 @@ const Index = () => {
         uToken: externalTokens[debtInfo.earnTokenName]
       })
     }
-    console.log(debts)
-    setDebt(debts[1])
 
-    const balance = await debts[1].mortgageToken.balanceOf(
+    const balance0 = await provider.getBalance('0x505eFcC134552e34ec67633D1254704B09584227')
+    const balance1 = await debts[1].mortgageToken.balanceOf(
       '0x505eFcC134552e34ec67633D1254704B09584227'
     )
-    console.log(balance)
+    const balance2 = await debts[2].mortgageToken.balanceOf(
+      '0x9a5C88aC0F209F284E35b4306710fEf83b8f9723'
+    )
+
+    const getAvgPrice = async () => {
+      try {
+        const { NestQuery } = contracts
+        const { USDT } = externalTokens
+        let { avgPrice } = await NestQuery.triggeredPriceInfo(USDT.address)
+        return getTonumber(avgPrice, USDT.decimal)
+      } catch (error) {
+        return '0'
+      }
+    }
+
+    const getNESTToUSDTPrice = async () => {
+      try {
+        const { NestQuery } = contracts
+        const { USDT, NEST } = externalTokens
+        let { avgPrice: avgPriceUSDT } = await NestQuery.triggeredPriceInfo(USDT.address)
+        let { avgPrice: avgPriceNEST } = await NestQuery.triggeredPriceInfo(NEST.address)
+        // avgPrice2/avgPrice1=NEST对u的价格
+        return getNumberToFixed(
+          new BigNumber(getTonumber(avgPriceUSDT, USDT.decimal)).div(
+            getTonumber(avgPriceNEST, NEST.decimal)
+          )
+        )
+      } catch (error) {
+        return '0'
+      }
+    }
+
+    const getNESTToETHPrice = async () => {
+      try {
+        const { NestQuery } = contracts
+        const { NEST } = externalTokens
+        let { avgPrice } = await NestQuery.triggeredPriceInfo(NEST.address)
+        // nest对ETH的价格  1/avgPrice2
+        return getNumberToFixed(new BigNumber(1).div(getTonumber(avgPrice, NEST.decimal)))
+      } catch (error) {
+        return '0'
+      }
+    }
+
+    const ETHAvgPrice = await getAvgPrice()
+    const NESTToUSDTPrice = await getNESTToUSDTPrice()
+    const NESTToETHPrice = await getNESTToETHPrice()
+
+    const tvl0 = new BigNumber(getTonumber(balance0, 18)).times(ETHAvgPrice).toNumber()
+    const tvl1 = new BigNumber(getTonumber(balance1, 18)).times(NESTToUSDTPrice).toNumber()
+    const tvl2 = new BigNumber(getTonumber(balance2, 18)).times(NESTToUSDTPrice).toNumber()
+    console.log(tvl0, tvl1, tvl2)
+
+    const ETHTVL = $isPositiveNumber($isFiniteNumber(tvl0))
+    const NESTTVL = $isPositiveNumber($isFiniteNumber(new BigNumber(tvl1).plus(tvl2).toNumber()))
+    const totalmortgageAssetValue = $isFiniteNumber(new BigNumber(ETHTVL).plus(NESTTVL).toNumber())
+    setTotal(formatValue(totalmortgageAssetValue))
   }, [])
 
   useEffect(() => {
@@ -168,7 +231,7 @@ const Index = () => {
           </div>
           <div className="total flex justify-between flex-col">
             <p>Total value locked</p>
-            <p className="amount">$131,233,574.45</p>
+            <p className="amount">${total}</p>
           </div>
         </section>
         <Part
