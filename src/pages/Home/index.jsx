@@ -101,6 +101,7 @@ const Index = () => {
     }
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const provider = new ethers.providers.Web3Provider(
     web3ProviderFrom(config.defaultProvider),
     config.chainId
@@ -163,21 +164,8 @@ const Index = () => {
       }
     }
 
-    // const getNESTToETHPrice = async () => {
-    //   try {
-    //     const { NestQuery } = contracts
-    //     const { NEST } = externalTokens
-    //     let { avgPrice } = await NestQuery.triggeredPriceInfo(NEST.address)
-    //     // nest对ETH的价格  1/avgPrice2
-    //     return getNumberToFixed(new BigNumber(1).div(getTonumber(avgPrice, NEST.decimal)))
-    //   } catch (error) {
-    //     return '0'
-    //   }
-    // }
-
     const ETHAvgPrice = await getAvgPrice()
     const NESTToUSDTPrice = await getNESTToUSDTPrice()
-    // const NESTToETHPrice = await getNESTToETHPrice()
 
     const tvl0 = new BigNumber(getTonumber(balance0, 18)).times(ETHAvgPrice).toNumber()
     const tvl1 = new BigNumber(getTonumber(balance1, 18)).times(NESTToUSDTPrice).toNumber()
