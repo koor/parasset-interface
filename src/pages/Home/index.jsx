@@ -163,36 +163,35 @@ const Index = () => {
       }
     }
 
-    const getNESTToETHPrice = async () => {
-      try {
-        const { NestQuery } = contracts
-        const { NEST } = externalTokens
-        let { avgPrice } = await NestQuery.triggeredPriceInfo(NEST.address)
-        // nest对ETH的价格  1/avgPrice2
-        return getNumberToFixed(new BigNumber(1).div(getTonumber(avgPrice, NEST.decimal)))
-      } catch (error) {
-        return '0'
-      }
-    }
+    // const getNESTToETHPrice = async () => {
+    //   try {
+    //     const { NestQuery } = contracts
+    //     const { NEST } = externalTokens
+    //     let { avgPrice } = await NestQuery.triggeredPriceInfo(NEST.address)
+    //     // nest对ETH的价格  1/avgPrice2
+    //     return getNumberToFixed(new BigNumber(1).div(getTonumber(avgPrice, NEST.decimal)))
+    //   } catch (error) {
+    //     return '0'
+    //   }
+    // }
 
     const ETHAvgPrice = await getAvgPrice()
     const NESTToUSDTPrice = await getNESTToUSDTPrice()
-    const NESTToETHPrice = await getNESTToETHPrice()
+    // const NESTToETHPrice = await getNESTToETHPrice()
 
     const tvl0 = new BigNumber(getTonumber(balance0, 18)).times(ETHAvgPrice).toNumber()
     const tvl1 = new BigNumber(getTonumber(balance1, 18)).times(NESTToUSDTPrice).toNumber()
     const tvl2 = new BigNumber(getTonumber(balance2, 18)).times(NESTToUSDTPrice).toNumber()
-    console.log(tvl0, tvl1, tvl2)
 
     const ETHTVL = $isPositiveNumber($isFiniteNumber(tvl0))
     const NESTTVL = $isPositiveNumber($isFiniteNumber(new BigNumber(tvl1).plus(tvl2).toNumber()))
     const totalmortgageAssetValue = $isFiniteNumber(new BigNumber(ETHTVL).plus(NESTTVL).toNumber())
     setTotal(formatValue(totalmortgageAssetValue))
-  }, [])
+  }, [provider])
 
   useEffect(() => {
     fetchPools()
-  }, [])
+  }, [fetchPools, total])
 
   return (
     <div className="wrapper flex">
